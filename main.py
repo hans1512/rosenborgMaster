@@ -1,21 +1,19 @@
 import ultralytics as ultralytics
+import torch
+from super_gradients.training import models
 from ultralytics import NAS
 import numpy as np
 from PIL import Image
 import requests
 from io import BytesIO
 import cv2
-import image_display
 
 
 def define_model():
-    model = NAS("yolo_nas_m.pt")
-    model.info()
-    image = Image.open("frame99.jpg")
-    image_array = np.asarray(image)
+    yolo_nas_m = models.get("yolo_nas_m", pretrained_weights="coco")
 
-    results = model.predict(image).show()
+    url = "frame99.jpg"
+    yolo_nas_m.predict(url, conf=0.25).show()
 
-    image_display.plot_bboxes(image_array, results[0].boxes.boxes, score=False)
 
 define_model()

@@ -1,4 +1,6 @@
-yolo_nas_m.pt
+yolo_nas_l.pt
 yolov8n.pt
 /yoloTraining
 /frames
+/yolov8_training
+/runs

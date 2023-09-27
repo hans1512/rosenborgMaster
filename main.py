@@ -36,20 +36,25 @@ def something():
 
 def define_YOLO():
     device = 0
-    yolov8 = YOLO('runs/detect/yolov8n_cuda3/weights/best.pt')
+    yolov8 = YOLO("yolov8l.pt")
+    #yolov8 = YOLO('runs/detect/yolov8lV115/weights/best.pt')
+
+
     CHECKPOINT_DIR = 'checkpoints'
     trainer = Trainer(experiment_name="yolo_player_detectionv1", ckpt_root_dir=CHECKPOINT_DIR)
 
     results = yolov8.train(
-        data='yolov8_training/data.yaml',
+        data='yoloTraining/data.yaml',
         imgsz=[1980, 1020],
-        epochs=2,
-        batch=2,
-        name='yolov8n_cuda')
+        epochs=10,
+        batch=6,
+        name='yolov8Large10')
 
-    yolov8.predict("30sec.mp4", save=True, conf=0.3)
+    yolov8.predict("30Sec.mp4", save=True, conf=0.3)
 
 
 if __name__ == "__main__":
+    print(torch.cuda.device_count())  # Number of GPUs available
+    print(torch.cuda.get_device_name(0))
     print("Hello")
     define_YOLO()

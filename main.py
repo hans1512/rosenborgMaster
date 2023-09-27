@@ -47,7 +47,7 @@ def define_YOLO():
         batch=2,
         name='yolov8n_cuda')
 
-    yolov8.predict("30sec.mp4", save=True, conf=0.3)
+    #yolov8.predict("30sec.mp4", save=True, conf=0.3)
 
 
 if __name__ == "__main__":

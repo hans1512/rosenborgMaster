@@ -36,18 +36,20 @@ def something():
 
 def define_YOLO():
     device = 0
-    yolov8 = YOLO('runs/detect/yolov8n_cuda3/weights/best.pt')
+    yolov8 = YOLO('yolov8l.pt')
     CHECKPOINT_DIR = 'checkpoints'
     trainer = Trainer(experiment_name="yolo_player_detectionv1", ckpt_root_dir=CHECKPOINT_DIR)
 
     results = yolov8.train(
-        data='yolov8_training/data.yaml',
+        data='yolovTraining/data.yaml',
         imgsz=[1980, 1020],
-        epochs=2,
-        batch=2,
+        epochs=10,
+        batch=6,
+        flipud=0.3,
+        fliplr=0.3,
         name='yolov8n_cuda')
 
-    #yolov8.predict("30sec.mp4", save=True, conf=0.3)
+    yolov8.predict("30sec.mp4", save=True, conf=0.3)
 
 
 if __name__ == "__main__":

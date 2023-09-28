@@ -38,9 +38,7 @@ def something():
 
 def define_YOLO():
     device = 0
-    yolov8 = YOLO('runs/detect/yolov8n_custom10/weights/best.pt')
-    CHECKPOINT_DIR = 'checkpoints'
-    trainer = Trainer(experiment_name="yolo_player_detectionv1", ckpt_root_dir=CHECKPOINT_DIR)
+    yolov8 = YOLO('yolov8l.pt')
 
     # results = yolov8.train(
     #     data='yolovTraining/data.yaml',

@@ -58,3 +58,7 @@ def write_data(predictions, file_name):
     data_file.write("classes = " + str(nmbr_classes))
     data_file.write("\nnames = obj.names")
     data_file.write("\ntrain = train.txt")
+
+    current_dir = os.getcwd()
+    shutil.make_archive(file_name + "_training_data", "zip", current_dir)
+    print("Done")

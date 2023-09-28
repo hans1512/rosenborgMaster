@@ -60,5 +60,5 @@ def write_data(predictions, file_name):
     data_file.write("\ntrain = train.txt")
 
     current_dir = os.getcwd()
-    shutil.make_archive(file_name + "_training_data", "zip", current_dir)
+    shutil.make_archive(file_name + "_training_data", "zip", current_dir + "\\" + file_name + "_training_data")
     print("Done")

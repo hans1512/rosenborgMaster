@@ -62,3 +62,15 @@ def write_data(predictions, file_name):
     current_dir = os.getcwd()
     shutil.make_archive(file_name + "_training_data", "zip", current_dir + "\\" + file_name + "_training_data")
     print("Done")
+
+
+def write_file_names():
+    current_dir = os.getcwd()
+    path = os.path.join(current_dir + "/matiasAnnotations_training_data/")
+
+    train = os.path.join(path, "train.txt")
+    train_file = open(train, "a")
+
+    for file in os.listdir(path + "obj_train_data"):
+        train_file.write("obj_train_data/" + file.split(".")[0] + ".jpg" + "\n")
+

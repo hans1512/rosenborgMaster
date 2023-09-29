@@ -38,7 +38,7 @@ def something():
 
 def define_YOLO():
     device = 0
-    yolov8 = YOLO('yolov8l.pt')
+    yolov8 = YOLO('best.pt')
 
     # results = yolov8.train(
     #     data='yolovTraining/data.yaml',

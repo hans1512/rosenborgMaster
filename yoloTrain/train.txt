@@ -1,1 +1,0 @@
-obj_train_data/RBKScreenshot.PNG

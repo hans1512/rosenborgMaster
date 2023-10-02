@@ -5,3 +5,5 @@ yolov8n.pt
 2sec.mp4
 30Sec.mp4
 .DS_Store
+dataProcessing/*.mp4
+dataProcessing/*.mov

@@ -2,78 +2,52 @@ import os
 import shutil
 import random
 
+# Function to ensure the directory exists, if not, create it
+def ensure_dir(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
-def split(orig_folder):
-    # Set the path to your source folder containing files to be split
+# Function to split the dataset into train, valid, and test sets
+def split_dataset(orig_folder):
     curr = os.getcwd()
-    source_folder = curr + "/" + orig_folder + "/images"
-    lab_folder = curr + "/" + orig_folder + "/labels"
+    source_images_folder = os.path.join(curr, orig_folder, "images")
+    source_labels_folder = os.path.join(curr, orig_folder, "labels")
 
-    # Set the paths for the train, test, and valid folders
-    train_folder = curr + "/" + orig_folder + "/train/images"
-    test_folder = curr + "/" + orig_folder + "/test/images"
-    valid_folder = curr + "/" + orig_folder + "/valid/images"
+    # Creating paths for the train, valid, and test sets for both images and labels
+    sets = ['train', 'valid', 'test']
+    folders = {s: {'images': os.path.join(curr, orig_folder, s, "images"),
+                   'labels': os.path.join(curr, orig_folder, s, "labels")} for s in sets}
 
-    train_folder_lab = curr + "/" + orig_folder + "/train/labels"
-    test_folder_lab = curr + "/" + orig_folder + "/test/labels"
-    valid_folder_lab = curr + "/" + orig_folder + "/valid/labels"
+    # Ensure all directories exist
+    for set_name, dirs in folders.items():
+        ensure_dir(dirs['images'])
+        ensure_dir(dirs['labels'])
 
-    # Define the split ratios
-    train_ratio = 0.8
-    test_ratio = 0.1
-    valid_ratio = 0.1
-
-    # Get a list of all files in the source folder
-    file_list = os.listdir(source_folder)
-
-    # Shuffle the file list randomly
+    # Get the list of all files (assuming they have the same names, just different extensions)
+    file_list = [f.rsplit('.', 1)[0] for f in os.listdir(source_images_folder) if f.endswith('.jpg')]
     random.shuffle(file_list)
 
-    # Calculate the number of files for each split
+    # Split ratios
     total_files = len(file_list)
-    num_train = int(total_files * train_ratio)
-    num_test = int(total_files * test_ratio)
-    num_valid = int(total_files * valid_ratio)
+    num_test = num_valid = total_files // 10  # 10% for test and valid each
+    num_train = total_files - num_test - num_valid  # 80% for training
 
-    # Split the files into train, test, and valid sets
-    train_files = file_list[:num_train]
-    test_files = file_list[num_train:num_train + num_test]
-    valid_files = file_list[num_train + num_test:]
+    # Distributing files into the respective sets
+    splits = {'train': file_list[:num_train],
+              'valid': file_list[num_train:num_train + num_valid],
+              'test': file_list[num_train + num_valid:]}
 
-    # Copy files to the train folder
-    for file_name in train_files:
-        source_path = os.path.join(source_folder, file_name)
-        dest_path = os.path.join(train_folder, file_name)
+    # Copying files to their respective directories
+    for set_name, files in splits.items():
+        for file_name in files:
+            # Copy image files
+            shutil.copy(os.path.join(source_images_folder, file_name + '.jpg'),
+                        os.path.join(folders[set_name]['images'], file_name + '.jpg'))
+            # Copy label files
+            shutil.copy(os.path.join(source_labels_folder, file_name + '.txt'),
+                        os.path.join(folders[set_name]['labels'], file_name + '.txt'))
 
-        lab_orig = os.path.join(lab_folder, file_name.split(".")[0] + ".txt")
-        lab_dest = os.path.join(train_folder_lab, file_name.split(".")[0] + ".txt")
+    print("Dataset splitting complete.")
 
-        shutil.copy(lab_orig, lab_dest)
-        shutil.copy(source_path, dest_path)
-
-    # Copy files to the test folder
-    for file_name in test_files:
-        source_path = os.path.join(source_folder, file_name)
-        dest_path = os.path.join(test_folder, file_name)
-
-        lab_orig = os.path.join(lab_folder, file_name.split(".")[0] + ".txt")
-        lab_dest = os.path.join(test_folder_lab, file_name.split(".")[0] + ".txt")
-
-        shutil.copy(lab_orig, lab_dest)
-        shutil.copy(source_path, dest_path)
-
-    # Copy files to the valid folder
-    for file_name in valid_files:
-        source_path = os.path.join(source_folder, file_name)
-        dest_path = os.path.join(valid_folder, file_name)
-
-        lab_orig = os.path.join(lab_folder, file_name.split(".")[0] + ".txt")
-        lab_dest = os.path.join(valid_folder_lab, file_name.split(".")[0] + ".txt")
-
-        shutil.copy(lab_orig, lab_dest)
-        shutil.copy(source_path, dest_path)
-
-    print("Splitting complete.")
-
-
-split("Hans300Training")
+# Call the function with the name of your original folder containing the 'images' and 'labels' subfolders
+split_dataset("matiasAnnotations")

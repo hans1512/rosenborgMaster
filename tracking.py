@@ -11,19 +11,35 @@ tracker = DeepOCSORT(
     fp16=True,
 )
 
-vid = cv2.VideoCapture("2sec.mp4")
+file_name = "2sec.mp4"
+
+input_video = cv2.VideoCapture(file_name)
+
+output_video = file_name.split(".")[0] + "_tracking_output.mp4"
+
+width = int(input_video.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(input_video.get(cv2.CAP_PROP_FRAME_HEIGHT))
+fps = input_video.get(cv2.CAP_PROP_FPS)
+
+# Define the codec and create VideoWriter object
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # or use 'XVID'
+out = cv2.VideoWriter(output_video, fourcc, fps, (width, height))
+
 color = (0, 0, 255)  # BGR
 thickness = 2
 fontscale = 0.5
 
+yolov8 = YOLO('best.pt')
+
 while True:
-    ret, im = vid.read()
+    ret, im = input_video.read()
 
-    yolov8 = YOLO('best.pt')
+    if not ret:
+        break
+
     predicted = yolov8.predict(im, conf=0.3)
-    print(predicted)
 
-    dets = predicted[0].boxes.boxes.cpu().numpy()
+    dets = predicted[0].boxes.data.cpu().numpy()
 
     # substitute by your object detector, input to tracker has to be N X (x, y, x, y, conf, cls)
     # dets = np.array([[144, 212, 578, 480, 0.82, 0],
@@ -63,12 +79,8 @@ while True:
                 thickness
             )
 
-    # show image with bboxes, ids, classes and confidences
-    cv2.imshow('frame', im)
+    out.write(im)
 
-    # break on pressing q
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-vid.release()
+input_video.release()
+out.release()
 cv2.destroyAllWindows()

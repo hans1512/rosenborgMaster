@@ -5,7 +5,7 @@ from torchinfo import summary
 from ultralytics import NAS, YOLO
 
 from export_YOLO_annotations import write_data
-
+import boxmot
 
 def define_NAS():
     device = 'cuda' if torch.cuda.is_available() else "cpu"

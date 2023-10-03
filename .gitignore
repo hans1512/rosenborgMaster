@@ -2,7 +2,6 @@ yolo_nas_l.pt
 yolov8n.pt
 /frames
 /runs
-2sec.mp4
 30Sec.mp4
 .DS_Store
 dataProcessing/*.mp4

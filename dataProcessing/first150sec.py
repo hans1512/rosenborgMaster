@@ -2,10 +2,10 @@ import cv2
 import numpy as np
 
 # Replace this with the path to your video file
-input_video_path = 'ES 13 Rosenborg - Lillestrøm.mov'
+input_video_path = 'step1.mov'
 
 # This will be the output video file with selected frames
-output_video_path = 'hel kamp.mp4'
+output_video_path = '2.mp4'
 
 # Open the video file
 cap = cv2.VideoCapture(input_video_path)
@@ -23,7 +23,7 @@ start_frame = int(0 * 60 * fps)
 end_frame = int(100 * 60 * fps)
 
 # Calculate the step to get 100 evenly spaced frames between the 30th and 33rd minute
-step = (end_frame - start_frame) // 150
+step = (end_frame - start_frame) // 50
 
 # Create a list of frame indices to extract
 frame_indices = list(range(start_frame, end_frame, step))[:150]  # Limit to 100 frames

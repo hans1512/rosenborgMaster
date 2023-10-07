@@ -6,3 +6,6 @@ yolov8n.pt
 .DS_Store
 dataProcessing/*.mp4
 dataProcessing/*.mov
+ES 20 Rosenborg- Aalesund.mov
+step1.mp4
+annotations.mp4

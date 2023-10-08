@@ -2,8 +2,8 @@ train: ../train/images
 val: ../valid/images
 test: ../test/images
 
-nc: 4
-names: ['ball', 'goalkeeper', 'player', 'referee']
+nc: 2
+names: ['ball', 'player']
 
 roboflow:
   workspace: roboflow-jvuqo

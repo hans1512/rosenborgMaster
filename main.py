@@ -5,7 +5,7 @@ from torchinfo import summary
 from ultralytics import NAS, YOLO
 
 from export_YOLO_annotations import write_data
-
+import boxmot
 
 def define_NAS():
     device = 'cuda' if torch.cuda.is_available() else "cpu"
@@ -38,22 +38,20 @@ def something():
 
 def define_YOLO():
     device = 0
-    yolov8 = YOLO('best.pt')
+    yolov8 = YOLO('runs/detect/100_ep_L/weights/best.pt')
+    results = yolov8.train(
+        data='Hans300Training/data.yaml',
+        imgsz=[1980, 1020],
+        epochs=1,
+        batch=1,
+        name='NewestTest')
 
-    # results = yolov8.train(
-    #     data='yolovTraining/data.yaml',
-    #     imgsz=[1980, 1020],
-    #     epochs=10,
-    #     batch=6,
-    #     flipud=0.3,
-    #     fliplr=0.3,
-    #     name='yolov8n_cuda')
-    predict_file = "2sec.mp4"
+    predict_file = "30Sec.mp4"
     predictions = yolov8(predict_file, save=True, save_txt=True, conf=0.3)
 
-    file_without_extension = predict_file.split(".")[0]
+  #  file_without_extension = predict_file.split(".")[0]
 
-    write_data(predictions, file_without_extension)
+   # write_data(predictions, file_without_extension)
 
 
 if __name__ == "__main__":

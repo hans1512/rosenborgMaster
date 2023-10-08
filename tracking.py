@@ -11,9 +11,9 @@ tracker = DeepOCSORT(
     fp16=True,
 )
 
-<<<<<<< HEAD
+
 vid = cv2.VideoCapture("30sec.mp4")
-=======
+
 file_name = "2sec.mp4"
 
 input_video = cv2.VideoCapture(file_name)
@@ -28,12 +28,13 @@ fps = input_video.get(cv2.CAP_PROP_FPS)
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # or use 'XVID'
 out = cv2.VideoWriter(output_video, fourcc, fps, (width, height))
 
->>>>>>> 42930633db4ff3881117bef013dbd5290b79711a
+
 color = (0, 0, 255)  # BGR
 thickness = 2
 fontscale = 0.5
 
 yolov8 = YOLO('best.pt')
+
 yolov8 = YOLO('runs/detect/NewDataset5008/weights/best.pt')
 
 while True:

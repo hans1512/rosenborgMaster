@@ -1,11 +1,13 @@
+import cv2
 import torch.version
 import gc
 from super_gradients.training import models, Trainer
 from torchinfo import summary
 from ultralytics import NAS, YOLO
+from matplotlib import pyplot as plt
 
-from export_YOLO_annotations import write_data
 import boxmot
+
 
 def define_NAS():
     device = 'cuda' if torch.cuda.is_available() else "cpu"
@@ -49,11 +51,24 @@ def define_YOLO():
     predict_file = "30Sec.mp4"
     predictions = yolov8(predict_file, save=True, save_txt=True, conf=0.3)
 
-  #  file_without_extension = predict_file.split(".")[0]
 
-   # write_data(predictions, file_without_extension)
+#  file_without_extension = predict_file.split(".")[0]
+
+# write_data(predictions, file_without_extension)
+
+
+def edge_detection():
+    img = cv2.imread('RBKScreenshot.PNG', 0)
+    edges = cv2.Canny(img, 100, 200)
+    plt.subplot(121), plt.imshow(img, cmap='gray')
+    plt.title('Original Image'), plt.xticks([]), plt.yticks([])
+
+    plt.subplot(122), plt.imshow(edges, cmap='gray')
+
+    plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
+    plt.show()
 
 
 if __name__ == "__main__":
     print("Hello")
-    define_YOLO()
+    edge_detection()

@@ -74,3 +74,30 @@ def write_file_names():
     for file in os.listdir(path + "obj_train_data"):
         train_file.write("obj_train_data/" + file.split(".")[0] + ".jpg" + "\n")
 
+
+def create_cvat_ready_annotations(name, video):
+    data_file, names_file, train_file, sub_path = create_folder_structure(name)
+    vidcap = cv2.VideoCapture(video)
+    success, image = vidcap.read()
+    count = 1
+
+    data_file.write("classes = " + str(2))
+    data_file.write("\nnames = obj.names")
+    data_file.write("\ntrain = train.txt")
+    names_file.write("ball" + "\n")
+    names_file.write("player" + "\n")
+
+    print(success)
+    frames_count = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
+    while count <= frames_count:
+        train_file.write("obj_train_data/" + video.split(".")[0] + "_" + str(count) + ".jpg" + "\n")
+        cv2.imwrite(sub_path + "/" + video.split(".")[0] + "_" + str(count) + ".jpg",
+                    image)  # save frame as JPEG file
+        success, image = vidcap.read()
+        count += 1
+
+    current_dir = os.getcwd()
+    shutil.make_archive(name, "zip", current_dir + "\\" + name)
+    print("Done")
+
+create_cvat_ready_annotations("Hans_annotating_300", "Hans_Annotations.mp4")

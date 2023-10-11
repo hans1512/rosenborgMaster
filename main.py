@@ -38,7 +38,7 @@ def something():
 
 def define_YOLO():
     device = 0
-    yolov8 = YOLO('runs/detect/100_ep_L/weights/best.pt')
+    yolov8 = YOLO('runs/detect/NewDataset5008/wights/best.pt')
     results = yolov8.train(
         data='Hans300Training/data.yaml',
         imgsz=[1980, 1020],

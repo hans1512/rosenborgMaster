@@ -14,7 +14,7 @@ tracker = DeepOCSORT(
 
 vid = cv2.VideoCapture("30sec.mp4")
 
-file_name = "2sec.mp4"
+file_name = "videos/2sec.mp4"
 
 input_video = cv2.VideoCapture(file_name)
 

@@ -45,7 +45,6 @@ def define_YOLO():
         data='yolov8_training/data.yaml',
         imgsz=[1980, 1020],
         epochs=500,
-        batch=6,
         name='From_scratch_new_data_V')
 
     predict_file = "30Sec.mp4"

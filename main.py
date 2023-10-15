@@ -40,13 +40,15 @@ def something():
 
 def define_YOLO():
     device = 0
-    yolov8 = YOLO('runs/detect/NewDataset5008/wights/best.pt')
+    yolov8 = YOLO('yolov8l.pt')
     results = yolov8.train(
-        data='Hans300Training/data.yaml',
+        data='yolov8_training/data.yaml',
         imgsz=[1980, 1020],
-        epochs=1,
-        batch=1,
-        name='NewestTest')
+        epochs=500,
+        batch=6,
+        flipud=0.3,
+        fliplr=0.3,
+        name='From_scratch_new_data_V')
 
     predict_file = "30Sec.mp4"
     predictions = yolov8(predict_file, save=True, save_txt=True, conf=0.3)

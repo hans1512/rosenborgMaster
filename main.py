@@ -73,4 +73,4 @@ def edge_detection():
 
 if __name__ == "__main__":
     print("Hello")
-    edge_detection()
+    define_YOLO()

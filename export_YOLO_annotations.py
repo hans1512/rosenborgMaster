@@ -9,7 +9,7 @@ def create_folder_structure(name):
     current_dir = os.getcwd()
     path = os.path.join(current_dir, name)
     os.mkdir(path)
-    sub_path = os.path.join(path, "obj_train_data")
+    sub_path = os.path.join(path, "labels")
     os.mkdir(sub_path)
 
     # Create the necessary files inside the parent folder
@@ -39,11 +39,11 @@ def write_data(predictions, file_name):
         cv2.imwrite(image_path, prediction.orig_img)
 
         # Move the labels text file from the predict dir
-        # to the obj_train_data directory so it can be imported in cvat
+        # to the labels directory so it can be imported in cvat
         text_label_path = "\\" + name + ".txt"
         shutil.move(source_folder + text_label_path, sub_path + text_label_path)
 
-        train_file.write("obj_train_data/" + name + ".jpg" + "\n")
+        train_file.write("labels/" + name + ".jpg" + "\n")
         classes = prediction.boxes.cls
         for cls in classes:
             if not seen.__contains__(int(cls)):
@@ -71,8 +71,8 @@ def write_file_names():
     train = os.path.join(path, "train.txt")
     train_file = open(train, "a")
 
-    for file in os.listdir(path + "obj_train_data"):
-        train_file.write("obj_train_data/" + file.split(".")[0] + ".jpg" + "\n")
+    for file in os.listdir(path + "labels"):
+        train_file.write("labels/" + file.split(".")[0] + ".jpg" + "\n")
 
 
 def create_cvat_ready_annotations(name, video):
@@ -90,7 +90,7 @@ def create_cvat_ready_annotations(name, video):
     print(success)
     frames_count = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
     while count <= frames_count:
-        train_file.write("obj_train_data/" + video.split(".")[0] + "_" + str(count) + ".jpg" + "\n")
+        train_file.write("labels/" + video.split(".")[0] + "_" + str(count) + ".jpg" + "\n")
         cv2.imwrite(sub_path + "/" + video.split(".")[0] + "_" + str(count) + ".jpg",
                     image)  # save frame as JPEG file
         success, image = vidcap.read()

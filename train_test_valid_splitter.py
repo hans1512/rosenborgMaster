@@ -2,10 +2,12 @@ import os
 import shutil
 import random
 
+
 # Function to ensure the directory exists, if not, create it
 def ensure_dir(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
+
 
 # Function to split the dataset into train, valid, and test sets
 def split_dataset(orig_folder):
@@ -49,5 +51,6 @@ def split_dataset(orig_folder):
 
     print("Dataset splitting complete.")
 
+
 # Call the function with the name of your original folder containing the 'images' and 'labels' subfolders
-split_dataset("matiasAnnotations")
+split_dataset("matiasAnnotations_training_data")

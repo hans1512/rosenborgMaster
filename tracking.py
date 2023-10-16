@@ -18,7 +18,7 @@ file_name = "videos/2sec.mp4"
 
 input_video = cv2.VideoCapture(file_name)
 
-output_video = file_name.split(".")[0] + "_tracking_output.mp4"
+output_video = file_name.split(".")[0] + "_testing.mp4"
 
 width = int(input_video.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(input_video.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -33,9 +33,7 @@ color = (0, 0, 255)  # BGR
 thickness = 2
 fontscale = 0.5
 
-yolov8 = YOLO('best.pt')
-
-yolov8 = YOLO('runs/detect/NewDataset5008/weights/best.pt')
+yolov8 = YOLO('runs/detect/From_scratch_new_data_V5/weights/best.pt')
 
 while True:
     ret, im = input_video.read()

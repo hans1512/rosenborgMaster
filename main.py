@@ -46,6 +46,7 @@ def define_YOLO():
         imgsz=[1980, 1020],
         epochs=600,
         batch=6,
+        patience = 400,
         name='From_scratch_new_data_V')
 
     predict_file = "videos/2sec.mp4"

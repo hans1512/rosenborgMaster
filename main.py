@@ -47,7 +47,7 @@ def define_YOLO():
         epochs=600,
         batch=6,
         patience = 400,
-        name='From_scratch_new_data_V')
+        name='New_data_600_V')
 
     predict_file = "videos/2sec.mp4"
     predictions = yolov8(predict_file, save=True, save_txt=True, conf=0.3)

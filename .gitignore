@@ -8,4 +8,7 @@ dataProcessing/*.mp4
 dataProcessing/*.mov
 ES 20 Rosenborg- Aalesund.mov
 step1.mp4
+train.zip
+TrackingData
 annotations.mp4
+mlfn_market1501.pt

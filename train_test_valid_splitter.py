@@ -53,4 +53,4 @@ def split_dataset(orig_folder):
 
 
 # Call the function with the name of your original folder containing the 'images' and 'labels' subfolders
-split_dataset("matiasAnnotations_training_data")
+split_dataset("Training1800")

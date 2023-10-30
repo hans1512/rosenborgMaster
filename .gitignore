@@ -2,6 +2,7 @@ yolo_nas_l.pt
 yolov8n.pt
 /frames
 /runs
+/videos
 30Sec.mp4
 .DS_Store
 dataProcessing/*.mp4
@@ -12,3 +13,4 @@ train.zip
 TrackingData
 annotations.mp4
 mlfn_market1501.pt
+/yolov8_training

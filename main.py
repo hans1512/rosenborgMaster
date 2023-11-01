@@ -42,12 +42,12 @@ def define_YOLO():
     device = 0
     yolov8 = YOLO('Models/yolov8l.pt')
     results = yolov8.train(
-        data='keypoint/data.yaml',
-        imgsz=[1980, 1020],
-        epochs=20,
-        batch=4,
+        data='yolov8_training/data.yaml',
+        imgsz=[1920, 1080],
+        epochs=500,
+        batch=6,
         patience = 0,
-        name='keypoint_detection')
+        name='6600_Additional_images')
 
     predict_file = "videos/2sec.mp4"
     predictions = yolov8(predict_file, save=True, save_txt=True, conf=0.3)
